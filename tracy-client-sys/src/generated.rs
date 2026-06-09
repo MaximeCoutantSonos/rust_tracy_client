@@ -403,6 +403,11 @@ fn bindgen_test_layout____tracy_gpu_time_sync_data() {
 pub struct __tracy_lockable_context_data {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __tracy_shared_lockable_context_data {
+    _unused: [u8; 0],
+}
 type TracyCZoneCtx = ___tracy_c_zone_context;
 extern "C" {
     pub fn ___tracy_alloc_srcloc(
@@ -700,6 +705,57 @@ extern "C" {
 extern "C" {
     pub fn ___tracy_custom_name_lockable_ctx(
         lockdata: *mut __tracy_lockable_context_data,
+        name: *const ::std::os::raw::c_char,
+        nameSz: usize,
+    );
+}
+extern "C" {
+    pub fn ___tracy_announce_shared_lockable_ctx(
+        srcloc: *const ___tracy_source_location_data,
+    ) -> *mut __tracy_shared_lockable_context_data;
+}
+extern "C" {
+    pub fn ___tracy_terminate_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data);
+}
+extern "C" {
+    pub fn ___tracy_before_lock_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data) -> i32;
+}
+extern "C" {
+    pub fn ___tracy_after_lock_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data);
+}
+extern "C" {
+    pub fn ___tracy_after_unlock_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data);
+}
+extern "C" {
+    pub fn ___tracy_after_try_lock_shared_lockable_ctx(
+        lockdata: *mut __tracy_shared_lockable_context_data,
+        acquired: i32,
+    );
+}
+extern "C" {
+    pub fn ___tracy_before_lock_shared_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data) -> i32;
+}
+extern "C" {
+    pub fn ___tracy_after_lock_shared_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data);
+}
+extern "C" {
+    pub fn ___tracy_after_unlock_shared_shared_lockable_ctx(lockdata: *mut __tracy_shared_lockable_context_data);
+}
+extern "C" {
+    pub fn ___tracy_after_try_lock_shared_shared_lockable_ctx(
+        lockdata: *mut __tracy_shared_lockable_context_data,
+        acquired: i32,
+    );
+}
+extern "C" {
+    pub fn ___tracy_mark_shared_lockable_ctx(
+        lockdata: *mut __tracy_shared_lockable_context_data,
+        srcloc: *const ___tracy_source_location_data,
+    );
+}
+extern "C" {
+    pub fn ___tracy_custom_name_shared_lockable_ctx(
+        lockdata: *mut __tracy_shared_lockable_context_data,
         name: *const ::std::os::raw::c_char,
         nameSz: usize,
     );
